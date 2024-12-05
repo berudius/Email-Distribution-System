@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Статистика</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="./styles/header-style.css">
+    <link rel="stylesheet" href="./styles/logs.css">
+    <link rel="stylesheet" href="./styles/footer-style.css">
+</head>
+<body>
+    <header th:insert="./blocks/header.html :: header"></header>
+    <main>
+        <div class="logs-container">
+            <div class="log-container" th:each="log : ${logs}">
+                <h3 th:text="|Ім'я користувача: ${log.userName}|"></h3>
+                <span th:text="|email: ${log.userEmail}|"></span>
+                <span th:text="|Rest: ${log.restCount}|"></span>
+                <span th:text="|Cron: ${log.cronCount}|"></span>
+                <span th:text="|first: ${log.first}|"></span>
+                <span th:text="|last: ${log.last}|"></span>
+            </div>
+        </div>
+
+        <div id="anhors-container" class="anhors-container" >
+            <div class="anhor-container">
+                <a th:classappend="${currentPage - 1 < 0} ? 'disabled' : ''" 
+                    th:href="@{/log-stats(page=${currentPage - 1})}" 
+                    class="button-anchor">
+                    <button>Попередня</button>
+                </a>
+                <a th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''" 
+                   th:href="@{/log-stats(page=${currentPage + 1})}"
+                   class="button-anchor"
+                   id="Next">
+                    <button>Наступна</button>
+                </a>
+            </div>
+        </div>
+        
+    </main>
+    <footer th:insert="./blocks/footer.html :: footer"></footer>
+</body>
+</html>

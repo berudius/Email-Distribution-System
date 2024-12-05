@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.thymeleaf.org">
+    <head>
+        <title th:text = "${title}" ></title>
+
+        <link rel="stylesheet" href="./styles/header-style.css">
+        <link rel="stylesheet" href="./styles/footer-style.css">
+        <link rel="stylesheet" href="./styles/home-style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+
+    <body>
+        <header th:insert = "./blocks/header.html :: header"></header>
+        <p class="peshka" th:text = "'Hello, ' + ${name} + '!' " style="padding: 10px;" ></p>
+        <footer th:insert = "./blocks/footer.html :: footer"></footer>
+    </body>
+</html>

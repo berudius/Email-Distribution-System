@@ -1,0 +1,414 @@
+body {
+  position: relative;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f8fa;
+  color: #333;
+}
+
+main{
+  min-height: 80vh;
+}
+
+a.disabled{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+.user-adding-form-opener {
+  position: fixed;
+  z-index: 1;
+  bottom: 40px;
+  right: 20px; 
+  width: 60px; 
+  height: 60px; 
+  font-size: 36px;
+  background-color: #ff9800; 
+  color: #ffffff;  
+  border: 0;
+  border-radius: 50%; 
+  cursor: pointer; 
+  transition: background-color 0.3s, transform 0.3s; 
+}
+
+.user-adding-form-opener:hover {
+  background-color: #ffa726; 
+  transform: scale(1.1); 
+}
+
+.user-adding-form-opener:active {
+  transform: scale(0.95); 
+}
+
+
+.users-container {
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+ 
+  gap: 20px 50px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+
+.user-container {
+  width: 28%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-name {
+  font-size: 18px;
+  color: rebeccapurple;
+}
+
+.user-email {
+  color: #555;
+}
+
+.createdOn,
+.updatedOn {
+  font-size: 14px;
+  color: #777;
+}
+
+
+.buttons-container button {
+  background: rebeccapurple;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.buttons-container button:hover {
+  background: darkmagenta;
+}
+
+.user-remove-button {
+  background: crimson;
+}
+
+.user-remove-button:hover {
+  background: darkred;
+}
+
+
+.user-form {
+  position: fixed;
+  display: none;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  left: calc(56vw - 38vw / 2);
+  top: 30vh;
+  width: 38vw;
+  max-width: 340px;
+  min-width: 300px;
+  margin: 20px auto;
+  z-index: 2;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  z-index: 1;
+}
+
+.user-form .title{
+  font-size: 18px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.user-form input {
+  display: block;
+  width: 80%;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.user-form input:focus{
+  border: 1px solid white;
+}
+
+.user-form button {
+  display: block;
+  width: 95%;
+  background: rebeccapurple;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.user-form button:hover {
+  background: darkmagenta;
+}
+
+.error-message {
+  margin: 0 auto;
+  color: rgb(209, 37, 71);
+  font-size: 12px;
+}
+
+
+.anhor-container{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.user-adding-form-opener {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rebeccapurple;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+.user-adding-form-opener:hover {
+  background: darkmagenta;
+}
+
+
+.button-anchor {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0);
+}
+
+.button-anchor button {
+  background: rebeccapurple;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background 0.3s ease;
+}
+
+.button-anchor button:hover {
+  background: darkmagenta;
+}
+
+.button-anchor.disabled button {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.message-block {
+  background: #bea7c3;
+  border-radius: 10px;
+  position: fixed;
+  text-align: center;
+  width: 35vw;
+  top: 15vh;
+  min-width: 240px;
+  max-width: 300px;
+  left: calc(55.6vw - 35vw / 2);
+  padding: 25px;
+  z-index: 2;
+}
+
+
+
+.search-container {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  gap: 10px;
+  align-items: center;
+  z-index: 2;
+}
+
+.input-wrapper {
+  position: relative; 
+  width: 100%;
+}
+
+.search-container input {
+  background: #dcdcdc;
+  border-radius: 5px;
+  border: 0;
+  padding-left: 10px;
+  padding-right: 35px; 
+  height: 32px;
+  font-size: 14px;
+  box-sizing: border-box;
+  width: 100%; 
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; 
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+.question-mark{
+  color: red;
+  right: -10%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hidden-message{
+  display: none;
+  position: absolute;
+  right: -20vw;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px;
+  background: #663399;
+  color: #f7f8fa;
+  text-wrap: nowrap;
+  border-radius: 10px;
+}
+
+.question-mark:hover .hidden-message {
+  display: block;
+}
+
+
+
+.spinner {
+    display: none; 
+    position: fixed;
+    top: 45vh;
+    left: 45vw;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    z-index: 2;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+.attention-window {
+  display: none;
+  position: fixed;
+  top: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40vw;
+  max-width: 500px;
+  min-width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 3;
+}
+
+.attention-window span#message {
+  display: block;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.attention-window button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.attention-window button#cancel-button {
+  background: #dcdcdc;
+  color: #333;
+}
+
+.attention-window button#cancel-button:hover {
+  background: #b0b0b0;
+}
+
+.attention-window button#remove-button {
+  background: crimson;
+  color: white;
+}
+
+.attention-window button#remove-button:hover {
+  background: darkred;
+}
+
+
+
+
+
+
+
+.show{
+  display: block;
+}
+
+.hidden{
+  display: none !important;
+}
+

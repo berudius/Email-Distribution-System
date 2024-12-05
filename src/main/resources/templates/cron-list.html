@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cron Jobs</title>
+        <link rel="stylesheet" href="./styles/cron-list.css">
+        <link rel="stylesheet" href="./styles/header-style.css">
+        <link rel="stylesheet" href="./styles/footer-style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <header th:insert="./blocks/header.html :: header"></header>
+        <main>
+
+            <div id="crons-container" class="crons-container" th:data-max-page-capacity="${maxPageCapacity}">
+                <div th:each="cron : ${crons}" class="cron-container">
+    
+                    <h3 th:text="'Вираз: ' + ${cron.expression}"
+                        th:data-expression="${cron.expression}"
+                        class="cron-expression"></h3>
+    
+                    <span class="createdOn" th:text="'Дата створення: ' + ${cron.formattedCreatedOn}"></span>
+                    <div class="buttons-container">
+                        <button class="cron-edit-form-opener-button"
+                                th:data-cron-id = "${cron.id}"
+                                onclick="openEditForm(event)">Редагувати</button>
+                        <button class="cron-remove-button"
+                                th:attr="href-action='/cron-list/remove-cron/' + ${cron.id}"
+                                onclick="removeCron(event)">Видалити</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="anhors-container" class="anhors-container" >
+                <div class="anhor-container">
+                    <a th:classappend="${currentPage - 1 < 0} ? 'disabled' : ''" 
+                        th:href="@{/cron-list(page=${currentPage - 1})}" 
+                        class="button-anchor">
+                        <button>Попередня</button>
+                    </a>
+                    <a th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''" 
+                       th:href="@{/cron-list(page=${currentPage + 1})}"
+                       class="button-anchor"
+                       id="Next">
+                        <button>Наступна</button>
+                    </a>
+                </div>
+            </div>
+            
+            
+    
+            <button class="user-adding-form-opener" onclick="openAddForm()"> + </button>
+            <form action="/cron-list/add-cron" method="post" id="cron-adding-form" class="cron-form" onsubmit="handleAddFormSubmit(event)">
+                 <span class="title">Додати cron job</span>
+                <input id="cron-expression-input-add" type="text" name="expression" required minlength="3" pattern=".*\S.*" title="Поле не може містити лише пробіли" placeholder="Cron-вираз">
+                <span class="error-message"></span>
+                <button type="submit">Додати</button>
+            </form>
+            <div id="add-overlay" class="overlay" onclick="closeForm(event)"></div>  
+            
+            <form action="/cron-list/edit-cron" id="cron-editing-form" class="cron-form" onsubmit="handleEditFormSubmit(event)">
+                <span class="title">Редагувати cron job</span>
+                <input id="cron-expression-input-edit" type="text" name="expression" required minlength="3" pattern=".*\S.*" title="Поле не може містити лише пробіли" placeholder="Ім'я користувача">
+                <span class="error-message"></span>
+                <button type="submit">Підтвердити</button>
+            </form>
+            <div id="edit-overlay" class="overlay" onclick="closeForm(event)"></div> 
+
+        </main>
+        <footer th:insert="./blocks/footer.html :: footer"></footer>
+
+        <script src="./js_scripts/CronCrudOperationsHandler.js"></script>
+    </body>
+</html>

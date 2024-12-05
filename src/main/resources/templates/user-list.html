@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" href="./styles/header-style.css">
+        <link rel="stylesheet" href="./styles/user-list.css">
+        <link rel="stylesheet" href="./styles/footer-style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <header th:insert="./blocks/header.html :: header"></header>
+
+        <main>
+
+            <div class="search-container">
+                <div></div>
+                <div class="input-wrapper">
+                    <input id="search-input" type="text" placeholder="Пошук...">
+                    <img src="./icons/lupa.png" alt="" class="input-icon" onclick="doUserSearch()">
+                    <span class="question-mark">?
+                        <span class="hidden-message">Можливий пошук з неповним словом (словами)</span>
+                    </span>
+                </div>
+                <div style="width: 100%;"></div>
+            </div>
+            
+            <div id="users-container" class="users-container" th:data-max-page-capacity="${maxPageCapacity}">
+                <div th:each="user : ${users}" class="user-container">
+    
+                    <h3 th:text="'Ім\'я користувача: ' + ${user.name}"
+                        th:data-name="${user.name}"
+                        class="user-name"></h3>
+    
+                    <span th:text="'Email користувача: ' + ${user.email}"
+                          th:data-email="${user.email}"
+                          class="user-email"></span>
+    
+                    <span class="createdOn" th:text="'Дата створення: ' + ${user.formattedCreatedOn}"></span>
+    
+                    <span class="updatedOn"
+                          th:text=" ${user.createdOn != user.updatedOn} ? 'Дата оновлення: ' + ${user.formattedUpdatedOn} : '' "></span>
+                    <div class="buttons-container">
+                        <button class="user-edit-form-opener-button"
+                                th:data-user-id = "${user.id}"
+                                onclick="openEditForm(event)">Редагувати</button>
+                        <button class="user-remove-button"
+                                th:attr="href-action='/user-list/remove-user/' + ${user.id}"
+                                onclick="openAttentionWindow(event)">Видалити</button>
+                                <!-- removeUser(event) -->
+                        <button class="user-message-sender"
+                                th:data-user-id = "${user.id}"
+                                onclick="callMessageSending(event)">Надіслати лист</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="attention-window" class="attention-window">
+                <span id="message">Видалення користувача призведе до видалення <b>статистики</b> про нього! Ви впевнені, що хочете видалити користувача </span>
+                <button id="cancel-button">Скасувати</button>
+                <button id="remove-button">Видалити</button>
+            </div>
+
+            <div id="users-search-container" class="users-container"></div>
+    
+            <div id="anhors-container" class="anhors-container" >
+                <div class="anhor-container">
+                    <a th:classappend="${currentPage - 1 < 0} ? 'disabled' : ''" 
+                        th:href="@{/user-list(page=${currentPage - 1})}" 
+                        class="button-anchor">
+                        <button>Попередня</button>
+                    </a>
+                    <a th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''" 
+                       th:href="@{/user-list(page=${currentPage + 1})}"
+                       class="button-anchor"
+                       id="Next">
+                        <button>Наступна</button>
+                    </a>
+                </div>
+            </div>
+            
+            
+    
+            <button class="user-adding-form-opener" onclick="openAddForm()"> + </button>
+            <form action="/user-list/add-user" method="post" id="user-adding-form" class="user-form" onsubmit="handleAddFormSubmit(event)">
+                 <span class="title">Додати користувача</span>
+                <input id="user-name-input-add" type="text" name="name" required minlength="3" pattern=".*\S.*" title="Поле не може містити лише пробіли" placeholder="Ім'я користувача">
+                <input id="user-email-input-add" type="email" name="email" required title="Невалідний формат email" placeholder="Email користувача">
+                <span class="error-message"></span>
+                <button type="submit">Додати</button>
+            </form>
+            <div id="add-overlay" class="overlay" onclick="closeForm(event)"></div>  
+            
+            <form action="/user-list/edit-user" id="user-editing-form" class="user-form" onsubmit="handleEditFormSubmit(event)">
+                <span class="title">Редагувати користувача</span>
+                <input id="user-name-input-edit" type="text" name="name" required minlength="3" pattern=".*\S.*" title="Поле не може містити лише пробіли" placeholder="Ім'я користувача">
+                <input id="user-email-input-edit" type="email" name="email" required title="Невалідний формат email" placeholder="Email користувача">
+                <span class="error-message"></span>
+                <button type="submit">Підтвердити</button>
+            </form>
+            <div id="edit-overlay" class="overlay" onclick="closeForm(event)"></div> 
+
+
+            <div id="spinner" class="spinner"></div> 
+        </main>
+        
+
+        <footer th:insert="./blocks/footer.html :: footer" class="footer"></footer>
+
+
+        <script type="module" src="./js_scripts/UserCrudOperationsHandler.js"></script>
+        <script type="module" src="./js_scripts/SearchOperations.js"></script>
+        <script src="./js_scripts/SenderEmailMessage.js"></script>
+    </body>
+</html>
