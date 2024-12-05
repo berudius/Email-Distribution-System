@@ -48,7 +48,12 @@ public class UserService {
 
            
             Page<User> users = getUsersByPage(page);
-            User firstUserOnPage =  users.getContent().getFirst();
+
+            User firstUserOnPage =  null;
+            if( ! users.getContent().isEmpty()){
+              firstUserOnPage = users.getContent().get(0);
+            }
+
             responce.put("type", "User");
             responce.put("user", user);
             responce.put("firstUserOnPage", firstUserOnPage);

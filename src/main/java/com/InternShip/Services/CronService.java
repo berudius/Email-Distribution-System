@@ -37,7 +37,12 @@ public class CronService {
             cron = saveCron(cron);
            
             Page<Cron> crons = getCronsByPage(page);
-            Cron firstCronOnPage =  crons.getContent().getFirst();
+            Cron firstCronOnPage =  null;
+
+            if( ! crons.getContent().isEmpty()){
+                firstCronOnPage = crons.getContent().getFirst();
+            }
+
             responce.put("type", "Cron");
             responce.put("cron", cron);
             responce.put("firstCronOnPage", firstCronOnPage);

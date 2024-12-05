@@ -31,9 +31,10 @@ public class CronJobScheduler {
     @Autowired
     ThreadPoolTaskScheduler taskSheduler;
 
+    //при запуску програми здійснити планування виконання операції надсилання повідомлення відповідно до cron job expression
     @PostConstruct
     public void init(){
-        // startScheduledJobs();
+         startScheduledJobs();
     }
     
     public void startScheduledJobs(){

@@ -1,6 +1,6 @@
 "use strict"
 
-function sendUnsuccesMessage(userName, userEmail){
+function sendSuccesMessage(userName, userEmail){
     let messageBlock = document.createElement("div");
     messageBlock.classList.add("message-block");
     messageBlock.textContent = `Лист надіслано користувачу ${userName} на gmail ${userEmail}`;
@@ -36,7 +36,7 @@ function callMessageSending(event){
     .then(data =>{
         hideOverlayAndLoadingAnimation();
         if(Boolean(data.isMessageSended)){
-            sendUnsuccesMessage(data.userName, data.userEmail);
+            sendSuccesMessage(data.userName, data.userEmail);
         }
         else{
             sendUnsuccesMessage();

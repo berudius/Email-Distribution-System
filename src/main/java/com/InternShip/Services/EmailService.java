@@ -5,15 +5,22 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 
 @Service
  class EmailService {
 
-       private final String host = "smtp.gmail.com";
-       private final String serviceEmail = "sanya.bero18@gmail.com";
-       private final String password = "vvfl ybzg bpug icvl";
+    @Value("${email.service.host}")
+    private String host;
+
+    @Value("${email.service.address}")
+    private String serviceEmail;
+
+    @Value("${email.service.password}")
+    private String password;
        private Session session;
 
         @PostConstruct
